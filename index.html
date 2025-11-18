@@ -31,6 +31,7 @@
             top: 0;
             left: 0;
             overflow-y: auto;
+            transition: transform 0.3s ease; /* Animación suave si se oculta */
         }
         .sidebar h1 {
             font-size: 1.5em;
@@ -65,8 +66,9 @@
         /* Área de contenido principal */
         .content-area {
             flex-grow: 1;
-            margin-left: 320px;
+            margin-left: 320px; /* Espacio para la sidebar por defecto */
             padding: 40px;
+            transition: margin-left 0.3s ease;
         }
 
         /* Estilo para los paneles de retos */
@@ -76,6 +78,8 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 25px 35px;
             display: none; /* Ocultos por defecto */
+            max-width: 900px; /* Para que no se estire demasiado en pantallas grandes */
+            margin: 0 auto;   /* Centrado */
         }
         .challenge-panel h2 {
             font-size: 2em;
@@ -119,51 +123,51 @@
         const challengeData = [
             {
                 title: "Reto 1: El Domador de Electrones",
-                introduction: "¡Hoy os enfrentaréis a la ley más fundamental de la electrónica! Vuestra misión es convertiros en 'domadores de electrones', controlando el brillo de una luz no por arte de magia, sino aplicando la poderosa Ley de Ohm. Aprenderéis a leer el lenguaje secreto de las resistencias y a usarlas para dictar cuánta energía fluye por vuestro circuito.",
-                description: "Vuestro reto es montar un circuito simple con un LED y experimentar cómo cambia su intensidad de brillo al utilizar tres resistencias de valores distintos (por ejemplo, 220Ω, 1kΩ y 10kΩ). Antes de conectar, deberéis usar el código de colores para identificar el valor de cada resistencia y predecir qué sucederá con el brillo del LED en cada caso.",
-                applications: "Este principio es la base del control en electrónica. Se usa para ajustar el volumen en un equipo de música, regular la velocidad de un motor, atenuar la luz de una pantalla y, lo más importante, proteger componentes delicados como los microprocesadores para que no se dañen por un exceso de corriente.",
+                introduction: "¡Hoy os enfrentaréis a la ley más fundamental de la electrónica! Vuestra misión es convertiros en 'domadores de electrones', controlando el brillo de una luz no por arte de magia, sino aplicando la poderosa Ley de Ohm.",
+                description: "Vuestro reto es montar un circuito simple con un LED y experimentar cómo cambia su intensidad de brillo al utilizar tres resistencias de valores distintos (por ejemplo, 220Ω, 1kΩ y 10kΩ).",
+                applications: "Este principio es la base del control en electrónica. Se usa para ajustar el volumen en un equipo de música o regular la velocidad de un motor.",
                 materials: ["1 x Protoboard", "1 x Portapilas o fuente de 5V", "1 x Diodo LED", "1 x Resistencia de 220Ω", "1 x Resistencia de 1kΩ", "1 x Resistencia de 10kΩ", "Varios cables de conexión"],
-                tools: ["Tabla del código de colores de resistencias", "Opcional: Multímetro para verificar los valores"]
+                tools: ["Tabla del código de colores de resistencias", "Opcional: Multímetro"]
             },
             {
                 title: "Reto 2: El Divisor de Voltaje",
-                introduction: "Imaginad que tenéis una fuente de gran poder (9V), pero necesitáis alimentar un componente delicado que solo admite 3V. ¿Cómo lo hacéis? La respuesta es uno de los circuitos más ingeniosos y utilizados: el divisor de voltaje. Hoy aprenderéis a 'rebanar' el voltaje para obtener exactamente el nivel que necesitáis, una técnica crucial para la electrónica analógica.",
-                description: "Construiréis un divisor de voltaje utilizando dos resistencias. El reto consiste en calcular los valores de las resistencias necesarias para obtener un voltaje de salida específico (por ejemplo, la mitad del voltaje de entrada) a partir de una fuente de alimentación. Luego, montaréis el circuito y utilizaréis un multímetro para medir el voltaje real y comprobar si vuestros cálculos eran correctos.",
-                applications: "Los divisores de voltaje son fundamentales para la lectura de sensores. La mayoría de los sensores analógicos (como los de luz, temperatura o humedad) funcionan variando su resistencia, y se colocan en un divisor de voltaje para que el microcontrolador pueda leer esa variación como un cambio de voltaje. ¡Es la clave para que las máquinas puedan 'sentir'!",
-                materials: ["1 x Protoboar", "1 x Fuente de alimentación (ej. una pila de 9V)", "2 x Resistencias (¡a calcular!)", "Varios cables de conexión"],
+                introduction: "Imaginad que tenéis una fuente de gran poder (9V), pero necesitáis alimentar un componente delicado que solo admite 3V. ¿Cómo lo hacéis? La respuesta es el divisor de voltaje.",
+                description: "Construiréis un divisor de voltaje utilizando dos resistencias. El reto consiste en calcular los valores de las resistencias necesarias para obtener un voltaje de salida específico.",
+                applications: "Los divisores de voltaje son fundamentales para la lectura de sensores analógicos.",
+                materials: ["1 x Protoboard", "1 x Fuente de alimentación", "2 x Resistencias (¡a calcular!)", "Varios cables de conexión"],
                 tools: ["Multímetro (¡esencial para este reto!)", "Calculadora"]
             },
             {
                 title: "Reto 3: El Interruptor Biónico",
-                introduction: "Un microcontrolador como el ESP32 es muy inteligente, pero tiene muy poca 'fuerza' (corriente). No puede encender un motor o una tira de LEDs por sí solo. Hoy construiréis un 'amplificador de fuerza', un interruptor biónico que permite a una señal débil del ESP32 controlar un dispositivo de alta potencia. ¡Bienvenidos al mundo de los transistores!",
-                description: "Vuestro reto es usar un transistor (BJT o MOSFET) como un interruptor electrónico. Programaréis el ESP32 para que envíe una señal de control a la 'base' o 'puerta' del transistor. Esta pequeña señal permitirá que una corriente mucho mayor, proveniente de una fuente de alimentación externa, fluya a través del transistor para encender un motor de corriente continua.",
-                applications: "¡Esta es la base de casi toda la electrónica de potencia! Se utiliza para controlar la velocidad de los motores en drones y coches eléctricos (con PWM), para encender y apagar las potentes luces de un escenario, y dentro de tu propio ordenador para gestionar la energía que llega al procesador. Todo dispositivo que controle algo de alta potencia usa este principio.",
-                materials: ["1 x Placa ESP32", "1 x Transistor (ej. BC547 para BJT o 2N7000 para MOSFET)", "1 x Motor DC pequeño", "1 x Diodo de protección (ej. 1N4007)", "1 x Resistencia (aprox. 1kΩ)", "1 x Fuente de alimentación externa para el motor", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
+                introduction: "Un microcontrolador como el ESP32 tiene poca fuerza. Hoy construiréis un 'amplificador de fuerza' usando transistores.",
+                description: "Vuestro reto es usar un transistor (BJT o MOSFET) como un interruptor electrónico para controlar un motor con el ESP32.",
+                applications: "¡Esta es la base de casi toda la electrónica de potencia! Se usa en coches eléctricos y control industrial.",
+                materials: ["1 x Placa ESP32", "1 x Transistor", "1 x Motor DC pequeño", "1 x Diodo de protección", "1 x Resistencia 1kΩ", "Fuente externa"],
+                tools: ["Ordenador", "Cable USB"]
             },
             {
                 title: "Reto 4: El Cerebro Lógico",
-                introduction: "El mundo digital se basa en decisiones increíblemente simples: SÍ o NO, 1 o 0. Estas decisiones las toman las 'puertas lógicas'. Hoy no usaréis un chip de puerta lógica, ¡sino que convertiréis vuestro ESP32 en una! Vais a programar la esencia misma del pensamiento computacional, enseñándole a vuestro microcontrolador a tomar decisiones basadas en reglas lógicas.",
-                description: "Programaréis el ESP32 para que emule el comportamiento de una puerta lógica AND. Para ello, leerá el estado de dos pulsadores (entrada A y entrada B). Un LED (la salida) solo se encenderá si, y solo si, ambos pulsadores son presionados al mismo tiempo, cumpliendo la tabla de verdad de la puerta AND. Como extra, podéis intentar emular una puerta OR o una XOR.",
-                applications: "Las puertas lógicas son los 'ladrillos' con los que se construyen todos los circuitos digitales, desde una simple calculadora hasta la CPU de un superordenador. El procesador de tu móvil está realizando miles de millones de operaciones lógicas como esta cada segundo para funcionar. Entender esto es entender el ADN de la era digital.",
-                materials: ["1 x Placa ESP32", "1 x Protoboard", "2 x Pulsadores", "1 x Diodo LED", "3 x Resistencias (2 para pull-down de 10kΩ, 1 para el LED de 220Ω)", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
+                introduction: "El mundo digital se basa en decisiones simples: SÍ o NO. Hoy programaréis puertas lógicas en vuestro ESP32.",
+                description: "Programaréis el ESP32 para que emule una puerta lógica AND. Un LED solo se encenderá si presionáis dos botones a la vez.",
+                applications: "Las puertas lógicas son los ladrillos de todos los ordenadores y móviles actuales.",
+                materials: ["1 x Placa ESP32", "1 x Protoboard", "2 x Pulsadores", "1 x LED", "3 x Resistencias"],
+                tools: ["Ordenador", "Cable USB"]
             },
             {
                 title: "Reto 5: El LED que Respira",
-                introduction: "Hasta ahora hemos visto el mundo digital: encendido o apagado. Pero el mundo real está lleno de matices. ¿Cómo podemos crear una luz que no solo se encienda, sino que lo haga con suavidad, como si estuviera respirando? La respuesta es una ingeniosa técnica llamada PWM (Modulación por Ancho de Pulso). Hoy crearéis un efecto visual hipnótico y elegante.",
-                description: "Vuestro reto es programar el ESP32 para que la intensidad de un LED aumente y disminuya de forma gradual y continua, creando un efecto de 'respiración' o 'latido'. Para ello, utilizaréis la capacidad de PWM del microcontrolador, escribiendo un programa que haga un bucle aumentando y luego disminuyendo el ciclo de trabajo de la señal.",
-                applications: "La PWM es una de las técnicas más versátiles. Se usa para controlar la velocidad de los motores de forma precisa, para regular la intensidad de las luces LED en tu casa (dimming), para controlar la posición de los servomotores, y para generar sonidos y tonos de audio a través de un zumbador o altavoz. Es la navaja suiza de la salida de señales.",
-                materials: ["1 x Placa ESP32", "1 x Protoboard", "1 x Diodo LED", "1 x Resistencia (220Ω)", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
+                introduction: "¿Cómo podemos crear una luz que cambie suavemente? Usando PWM (Modulación por Ancho de Pulso).",
+                description: "Programaréis el ESP32 para que la intensidad de un LED aumente y disminuya gradualmente (efecto fading).",
+                applications: "La PWM se usa para controlar velocidad de motores, intensidad de luces y servos.",
+                materials: ["1 x Placa ESP32", "1 x Protoboard", "1 x LED", "1 x Resistencia"],
+                tools: ["Ordenador", "Cable USB"]
             },
             {
                 title: "Reto 6: El Control Remoto por Cable",
-                introduction: "¡Es hora de establecer una conversación entre dos mundos: el de vuestro ordenador y el de vuestro microcontrolador! Vais a crear una línea de comunicación directa que os permitirá dar órdenes a vuestro circuito desde el teclado. Ya no estaréis limitados a un programa fijo; podréis interactuar con vuestro hardware en tiempo real. Este es el primer paso hacia el control remoto y la telemetría.",
-                description: "Crearéis un sistema de control por puerto serie (UART). El programa en vuestro ESP32 estará a la escucha de los datos que lleguen desde el Monitor Serie de vuestro ordenador. Si enviáis un carácter específico (por ejemplo, la letra 'e'), un LED se encenderá. Si enviáis otro (como la 'a'), el LED se apagará. El ESP32 también responderá con un mensaje de confirmación.",
-                applications: "La comunicación serie es un estándar industrial para la depuración de sistemas, la configuración de dispositivos de red y la comunicación entre diferentes componentes de una máquina. Cuando conectas un GPS o muchos otros sensores a un sistema, a menudo usan UART para enviar los datos. También es la base para crear interfaces de control personalizadas en el ordenador.",
-                materials: ["1 x Placa ESP32", "1 x Protoboard", "1 x Diodo LED", "1 x Resistencia (220Ω)", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo (y su Monitor Serie)", "Cable USB"]
+                introduction: "¡Es hora de hablar con vuestro circuito! Usaréis el puerto serie para enviar órdenes desde el PC.",
+                description: "Crearéis un sistema donde al enviar una letra desde el ordenador, el ESP32 encenderá o apagará un LED.",
+                applications: "La comunicación serie (UART) es estándar para GPS, sensores industriales y depuración.",
+                materials: ["1 x Placa ESP32", "1 x Protoboard", "1 x LED", "1 x Resistencia"],
+                tools: ["Ordenador", "Monitor Serie"]
             }
         ];
 
@@ -185,7 +189,6 @@
                 panel.id = challengeId;
                 panel.className = 'challenge-panel';
                 
-                // Generar listas de materiales y herramientas
                 let materialsHtml = '<ul>';
                 challenge.materials.forEach(item => { materialsHtml += `<li>${item}</li>`; });
                 materialsHtml += '</ul>';
@@ -194,50 +197,39 @@
                 challenge.tools.forEach(item => { toolsHtml += `<li>${item}</li>`; });
                 toolsHtml += '</ul>';
 
-                // Ensamblar todo el HTML del panel
                 panel.innerHTML = `
                     <h2>${challenge.title}</h2>
-                    
                     <h3>Introducción: ¡Vuestro objetivo!</h3>
                     <p>${challenge.introduction}</p>
-                    
                     <h3>¿Qué vais a construir?</h3>
                     <p>${challenge.description}</p>
-                    
                     <h3>Aplicaciones en el Mundo Real</h3>
                     <p>${challenge.applications}</p>
-                    
                     <h3>Lista de Materiales</h3>
                     ${materialsHtml}
-                    
                     <h3>Lista de Herramientas</h3>
                     ${toolsHtml}
                 `;
                 contentPanels.appendChild(panel);
             });
 
-
-            // --- 3. Añadir interactividad ---
+            // --- 3. Lógica de visualización ---
             const links = document.querySelectorAll('.challenge-link');
             const panels = document.querySelectorAll('.challenge-panel');
-
+            
             function showPanel(targetId) {
-                // Ocultar todos los paneles y quitar 'active' de los links
                 panels.forEach(panel => panel.classList.remove('active'));
                 links.forEach(link => link.classList.remove('active'));
 
-                // Mostrar el panel y el link activo
                 const targetPanel = document.querySelector(targetId);
+                // Solo activamos el link si el menú existe (no estamos en modo presentación)
                 const activeLink = document.querySelector(`a[href="${targetId}"]`);
 
-                if (targetPanel) {
-                    targetPanel.classList.add('active');
-                }
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+                if (targetPanel) targetPanel.classList.add('active');
+                if (activeLink) activeLink.classList.add('active');
             }
-            
+
+            // Listeners para clicks normales
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -246,46 +238,41 @@
                 });
             });
 
-            // Mostrar el primer reto por defecto
-            showPanel('#reto-1');
+            // --- 4. MODO QUIOSCO / SOLO LECTURA (La parte nueva) ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const retoEspecifico = urlParams.get('ver'); // Busca ?ver=reto-X
+
+            if (retoEspecifico) {
+                // A) Si hay petición específica en la URL:
+                
+                // 1. Ocultar la barra lateral completamente
+                const sidebar = document.querySelector('.sidebar');
+                if(sidebar) sidebar.style.display = 'none';
+
+                // 2. Quitar el margen izquierdo del contenido para que ocupe todo el ancho
+                const contentArea = document.querySelector('.content-area');
+                if(contentArea) {
+                    contentArea.style.marginLeft = '0';
+                    contentArea.style.width = '100%';
+                }
+
+                // 3. Mostrar SOLAMENTE el reto pedido
+                // Aseguramos que existe el panel con ese ID (ej: reto-1)
+                const panelPedido = document.getElementById(retoEspecifico);
+                if (panelPedido) {
+                    panelPedido.classList.add('active');
+                } else {
+                    // Si escriben mal el número, mostramos error o el primero
+                    alert('Reto no encontrado: ' + retoEspecifico);
+                }
+
+            } else {
+                // B) Modo normal (Si no hay ?ver=...):
+                // Mostrar el primer reto por defecto
+                showPanel('#reto-1');
+            }
         });
     </script>
-<script>
-  // --- SCRIPT MODO EXAMEN / PRESENTACION ---
-  
-  const urlParams = new URLSearchParams(window.location.search);
-  const idSeccion = urlParams.get('ver'); // Busca ?ver=algo en la URL
-
-  if (idSeccion) {
-    // 1. Buscar la sección específica que quieres mostrar
-    const seccionElegida = document.getElementById(idSeccion);
-
-    if (seccionElegida) {
-      // 2. Ocultar la barra de navegación y cabeceras
-      const nav = document.querySelector('nav');
-      const header = document.querySelector('header');
-      if (nav) nav.style.display = 'none';
-      if (header) header.style.display = 'none';
-
-      // 3. MAGIA: Ocultar todos los "hermanos" de esa sección
-      // Esto hace que el resto de la página desaparezca y solo quede tu reto
-      const padre = seccionElegida.parentElement;
-      Array.from(padre.children).forEach(hijo => {
-        if (hijo !== seccionElegida && hijo.tagName !== 'SCRIPT') {
-           hijo.style.display = 'none';
-        }
-      });
-
-      // 4. Asegurar que la sección elegida sea visible
-      seccionElegida.style.display = 'block';
-      
-    } else {
-      console.log("No se encontró una sección con el ID: " + idSeccion);
-    }
-  }
-</script>
-    
 </body>
-
 </html>
 
