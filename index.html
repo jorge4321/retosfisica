@@ -138,12 +138,12 @@
                 tools: ["Multímetro (¡esencial para este reto!)", "Calculadora"]
             },
             {
-                title: "Reto 3: El Interruptor Biónico",
-                introduction: "Un microcontrolador como el ESP32 tiene poca fuerza. Hoy construiréis un 'amplificador de fuerza' usando transistores.",
-                description: "Vuestro reto es usar un transistor (BJT o MOSFET) como un interruptor electrónico para controlar un motor con el ESP32.",
-                applications: "¡Esta es la base de casi toda la electrónica de potencia! Se usa en coches eléctricos y control industrial.",
-                materials: ["1 x Placa ESP32", "1 x Transistor", "1 x Motor DC pequeño", "1 x Diodo de protección", "1 x Resistencia 1kΩ", "Fuente externa"],
-                tools: ["Ordenador", "Cable USB"]
+                title: "Reto 3: Activar un LED usando un transistor NPN",
+                introduction: "A veces necesitamos activar componentes con una señal muy débil o con un simple toque. El transistor 2N2551 actuará como un interruptor electrónico activado por una pequeña corriente.",
+                description: "Vuestro reto es montar un circuito en la protoboard usando el transistor 2N2551. Conectaréis un pulsador a la base del transistor (a través de una resistencia). Al pulsar el botón, una pequeña corriente entrará por la base y permitirá que una corriente mayor fluya desde el colector, encendiendo el LED. ¡Sin el transistor, este control no sería tan eficiente!",
+                applications: "Este circuito es la base de los amplificadores y de la automatización. Así funcionan los sensores de movimiento que encienden luces o los sistemas de alarma.",
+                materials: ["1 x Fuente de alimentación (Pilas o 5V)", "1 x Transistor NPN 2N2551", "1 x Pulsador (Pushbutton)", "1 x Diodo LED", "1 x Resistencia 330Ω (Para el LED)", "1 x Resistencia 10kΩ (Para la Base)", "Protoboard y cables"],
+                tools: ["Hoja de datos (Datasheet) del 2N2551", "Multímetro"]
             },
             {
                 title: "Reto 4: El Cerebro Lógico",
@@ -275,4 +275,5 @@
     </script>
 </body>
 </html>
+
 
