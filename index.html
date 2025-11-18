@@ -250,6 +250,32 @@
             showPanel('#reto-1');
         });
     </script>
+<script>
+  // Código para modo presentación/bloqueado
+  const urlParams = new URLSearchParams(window.location.search);
+  const modo = urlParams.get('modo');
 
+  if (modo === 'bloqueado') {
+    // 1. Ocultar la barra de navegación (etiqueta <nav> o <header>)
+    const nav = document.querySelector('nav');
+    const header = document.querySelector('header');
+    if (nav) nav.style.display = 'none';
+    if (header) header.style.display = 'none';
+
+    // 2. Desactivar TODOS los enlaces para que no se pueda salir
+    const enlaces = document.querySelectorAll('a');
+    enlaces.forEach(link => {
+      link.style.pointerEvents = 'none'; // No se puede hacer clic
+      link.style.cursor = 'default';     // No sale la manita
+      link.style.opacity = '0.6';        // Se ven un poco más claros (opcional)
+    });
+    
+    // 3. Ocultar botones si los hubiera
+    const botones = document.querySelectorAll('button');
+    botones.forEach(btn => btn.style.display = 'none');
+  }
+</script>
+    
 </body>
+
 </html>
